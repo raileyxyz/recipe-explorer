@@ -1,0 +1,10 @@
+<ion-header>
+  <ion-toolbar>
+    @if (backHref) {
+      <ion-buttons slot="start">
+        <ion-back-button [defaultHref]="backHref"></ion-back-button>
+      </ion-buttons>
+    }
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>

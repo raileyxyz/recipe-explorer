@@ -1,0 +1,23 @@
+<app-page-header title="Recipes"></app-page-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar placeholder="Search recipes..." [debounce]="400" (ionInput)="onSearch($event)"></ion-searchbar>
+
+  @if (isLoading()) {
+  <div class="center">
+    <ion-spinner></ion-spinner>
+  </div>
+  } @if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+  } @if (!isLoading() && !errorMessage() && recipes().length === 0) {
+  <p class="empty">No recipes found.</p>
+  } @for (recipe of recipes(); track recipe.id) {
+  <ion-card button [routerLink]="['/recipes', recipe.id]">
+    <ion-img [src]="recipe.image" [alt]="recipe.name"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{ recipe.name }}</ion-card-title>
+      <ion-card-subtitle>{{ recipe.cuisine }} • {{ recipe.difficulty }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  }
+</ion-content>

@@ -1,0 +1,47 @@
+<app-page-header title="Recipe Details" backHref="/recipes"></app-page-header>
+
+<ion-content>
+  @if (isLoading()) {
+  <div class="center">
+    <ion-spinner></ion-spinner>
+  </div>
+  } @if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+  } @if (recipe(); as r) {
+  <ion-img [src]="r.image" [alt]="r.name"></ion-img>
+
+  <div class="ion-padding">
+    <h1>{{ r.name }}</h1>
+    <p class="meta">{{ r.cuisine }} • {{ r.difficulty }} • {{ r.servings }} servings</p>
+    <p class="meta">Prep: {{ r.prepTimeMinutes }} min • Cook: {{ r.cookTimeMinutes }} min</p>
+  </div>
+
+  <ion-accordion-group [multiple]="true" [value]="['ingredients', 'instructions']">
+    <ion-accordion value="ingredients">
+      <ion-item slot="header">
+        <ion-label>Ingredients</ion-label>
+      </ion-item>
+      <div slot="content" class="ion-padding">
+        <ul>
+          @for (item of r.ingredients; track $index) {
+          <li>{{ item }}</li>
+          }
+        </ul>
+      </div>
+    </ion-accordion>
+
+    <ion-accordion value="instructions">
+      <ion-item slot="header">
+        <ion-label>Instructions</ion-label>
+      </ion-item>
+      <div slot="content" class="ion-padding">
+        <ol>
+          @for (step of r.instructions; track $index) {
+          <li>{{ step }}</li>
+          }
+        </ol>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+  }
+</ion-content>
