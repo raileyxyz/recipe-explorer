@@ -9,9 +9,9 @@ export class RecipeService {
 
   constructor(private http: HttpClient) {}
 
-  // get the 20 recipe
+  // get the recipe in api
   getRecipes(): Observable<RecipesResponse> {
-    return this.http.get<RecipesResponse>(`${this.apiUrl}?limit=20`);
+    return this.http.get<RecipesResponse>(`${this.apiUrl}?limit=0`);
   }
 
   // search recipe through api

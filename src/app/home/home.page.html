@@ -1,11 +1,54 @@
 <app-page-header title="Recipe Explorer"></app-page-header>
 
-<ion-content class="ion-padding">
-  <div class="hero">
-    <h1>Recipe Explorer</h1>
-    <p>Browse recipes, check the ingredients, and see how to cook them.</p>
-  </div>
+<ion-content>
+  <div class="page">
+    <p class="greeting">Hello, foodie!</p>
+    <h1 class="headline">Make your own food,<br />stay at <span>home</span></h1>
 
-  <ion-button expand="block" routerLink="/recipes">Browse Recipes</ion-button>
-  <ion-button expand="block" fill="outline" routerLink="/about">About Our Group</ion-button>
+    <div class="top">
+      <ion-searchbar placeholder="Find your today's recipe" (ionInput)="onSearch($event)"></ion-searchbar>
+
+      <div class="chips">
+        @for (type of mealTypes(); track type) {
+        <ion-chip [class.active]="selectedType() === type" (click)="selectType(type)">
+          <ion-label>{{ type }}</ion-label>
+        </ion-chip>
+        }
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>All Recipes</h2>
+      <span>{{ filteredRecipes().length }} found</span>
+    </div>
+
+    @if (isLoading()) {
+    <div class="center">
+      <ion-spinner></ion-spinner>
+    </div>
+    } @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+    } @if (!isLoading() && !errorMessage() && filteredRecipes().length === 0) {
+    <p class="empty">No recipes found.</p>
+    }
+
+    <div class="grid">
+      @for (recipe of filteredRecipes(); track recipe.id) {
+      <ion-card button (click)="openRecipe(recipe.id)">
+        <div class="thumb">
+          <ion-img [src]="recipe.image" [alt]="recipe.name"></ion-img>
+          <span class="badge">★ {{ recipe.rating }}</span>
+        </div>
+        <div class="info">
+          <h3>{{ recipe.name }}</h3>
+          <p>{{ recipe.cuisine }} • {{ recipe.prepTimeMinutes + recipe.cookTimeMinutes }} min</p>
+        </div>
+      </ion-card>
+      }
+    </div>
+  </div>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <app-bottom-nav active="home"></app-bottom-nav>
+</ion-footer>

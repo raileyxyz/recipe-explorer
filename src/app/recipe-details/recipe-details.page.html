@@ -1,6 +1,10 @@
-<app-page-header title="Recipe Details" backHref="/recipes"></app-page-header>
-
 <ion-content>
+  <ion-fab slot="fixed" vertical="top" horizontal="start">
+    <ion-fab-button size="small" (click)="goBack()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   @if (isLoading()) {
   <div class="center">
     <ion-spinner></ion-spinner>
@@ -8,40 +12,52 @@
   } @if (errorMessage()) {
   <p class="error">{{ errorMessage() }}</p>
   } @if (recipe(); as r) {
-  <ion-img [src]="r.image" [alt]="r.name"></ion-img>
-
-  <div class="ion-padding">
-    <h1>{{ r.name }}</h1>
-    <p class="meta">{{ r.cuisine }} • {{ r.difficulty }} • {{ r.servings }} servings</p>
-    <p class="meta">Prep: {{ r.prepTimeMinutes }} min • Cook: {{ r.cookTimeMinutes }} min</p>
+  <div class="hero">
+    <ion-img [src]="r.image" [alt]="r.name"></ion-img>
   </div>
 
-  <ion-accordion-group [multiple]="true" [value]="['ingredients', 'instructions']">
-    <ion-accordion value="ingredients">
-      <ion-item slot="header">
-        <ion-label>Ingredients</ion-label>
-      </ion-item>
-      <div slot="content" class="ion-padding">
-        <ul>
-          @for (item of r.ingredients; track $index) {
-          <li>{{ item }}</li>
-          }
-        </ul>
-      </div>
-    </ion-accordion>
+  <div class="sheet">
+    <div class="title-row">
+      <h1>{{ r.name }}</h1>
+      <span class="rating">★ {{ r.rating }}</span>
+    </div>
+    <p class="sub">{{ r.cuisine }} • {{ r.difficulty }} • {{ r.reviewCount }} reviews</p>
 
-    <ion-accordion value="instructions">
-      <ion-item slot="header">
-        <ion-label>Instructions</ion-label>
-      </ion-item>
-      <div slot="content" class="ion-padding">
-        <ol>
-          @for (step of r.instructions; track $index) {
-          <li>{{ step }}</li>
-          }
-        </ol>
+    <div class="stats">
+      <div class="stat">
+        <strong>{{ r.prepTimeMinutes }}</strong>
+        <span>Prep (min)</span>
       </div>
-    </ion-accordion>
-  </ion-accordion-group>
+      <div class="stat">
+        <strong>{{ r.cookTimeMinutes }}</strong>
+        <span>Cook (min)</span>
+      </div>
+      <div class="stat">
+        <strong>{{ r.servings }}</strong>
+        <span>Servings</span>
+      </div>
+      <div class="stat">
+        <strong>{{ r.caloriesPerServing }}</strong>
+        <span>Calories</span>
+      </div>
+    </div>
+
+    <h2>Ingredients</h2>
+    <ul class="ingredients">
+      @for (item of r.ingredients; track $index) {
+      <li>{{ item }}</li>
+      }
+    </ul>
+
+    <h2>Directions</h2>
+    <ol class="steps">
+      @for (step of r.instructions; track $index) {
+      <li>
+        <span class="num">{{ $index + 1 }}</span>
+        <p>{{ step }}</p>
+      </li>
+      }
+    </ol>
+  </div>
   }
 </ion-content>

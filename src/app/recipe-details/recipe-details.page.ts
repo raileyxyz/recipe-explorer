@@ -1,7 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonContent, IonImg, IonSpinner, IonAccordionGroup, IonAccordion, IonItem, IonLabel } from '@ionic/angular';
-import { PageHeaderComponent } from '../components/page-header/page-header.component';
+import { NavController, IonContent, IonImg, IonSpinner, IonFab, IonFabButton, IonIcon } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { arrowBack } from 'ionicons/icons';
 import { Recipe } from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';
 
@@ -9,7 +10,7 @@ import { RecipeService } from '../services/recipe.service';
   selector: 'app-recipe-details',
   templateUrl: 'recipe-details.page.html',
   styleUrls: ['recipe-details.page.scss'],
-  imports: [IonContent, IonImg, IonSpinner, IonAccordionGroup, IonAccordion, IonItem, IonLabel, PageHeaderComponent],
+  imports: [IonContent, IonImg, IonSpinner, IonFab, IonFabButton, IonIcon],
 })
 export class RecipeDetailsPage implements OnInit {
   recipe = signal<Recipe | null>(null);
@@ -19,7 +20,10 @@ export class RecipeDetailsPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-  ) {}
+    private navCtrl: NavController,
+  ) {
+    addIcons({ arrowBack });
+  }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -34,5 +38,9 @@ export class RecipeDetailsPage implements OnInit {
         this.isLoading.set(false);
       },
     });
+  }
+
+  goBack() {
+    this.navCtrl.navigateBack('/home');
   }
 }
