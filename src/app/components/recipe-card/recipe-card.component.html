@@ -1,0 +1,10 @@
+<ion-card button (click)="open()">
+  <div class="thumb">
+    <ion-img [src]="recipe.image" [alt]="recipe.name"></ion-img>
+    <span class="badge">★ {{ recipe.rating }}</span>
+  </div>
+  <div class="info">
+    <h3>{{ recipe.name }}</h3>
+    <p>{{ recipe.cuisine }} • {{ recipe.prepTimeMinutes + recipe.cookTimeMinutes }} min</p>
+  </div>
+</ion-card>

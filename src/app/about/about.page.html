@@ -1,0 +1,51 @@
+<app-page-header title="About Our Group"></app-page-header>
+
+<ion-content>
+  <div class="page">
+    <div class="project">
+      <p class="label">Project</p>
+      <h1>{{ projectTitle }}</h1>
+      <p class="description">{{ projectDescription }}</p>
+
+      <div class="tools">
+        @for (tool of tools; track tool) {
+        <span class="tool">{{ tool }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="course">
+      <div>
+        <strong>{{ course }}</strong>
+        <span>Course</span>
+      </div>
+      <div>
+        <strong>{{ yearSection }}</strong>
+        <span>Year & Section</span>
+      </div>
+      <p class="subject">{{ subject }}</p>
+    </div>
+
+    <h2>Group Members</h2>
+    <div class="members">
+      @for (member of members; track member.name) {
+      <div class="member">
+        @if (member.photo) {
+        <img class="avatar" [src]="member.photo" [alt]="member.name" loading="lazy" />
+        } @else {
+        <span class="avatar">{{ member.name.charAt(0) }}</span>
+        }
+        <div class="member-info">
+          <h3>{{ member.name }}</h3>
+          <p class="role">{{ member.role }}</p>
+          <p class="contribution">{{ member.contribution }}</p>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <app-bottom-nav active="about"></app-bottom-nav>
+</ion-footer>

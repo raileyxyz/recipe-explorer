@@ -21,7 +21,6 @@
   }
 }
 
-// Nananatili sa taas habang nag-i-scroll
 .top {
   position: sticky;
   top: 0;
@@ -40,7 +39,6 @@ ion-searchbar {
   font-size: 14px;
 }
 
-// Pwedeng i-swipe pa-left
 .chips {
   display: flex;
   gap: 10px;
@@ -89,7 +87,6 @@ ion-chip {
   }
 }
 
-// 2 column grid
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

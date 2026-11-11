@@ -1,10 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, IonContent, IonImg, IonSpinner, IonFab, IonFabButton, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { arrowBack } from 'ionicons/icons';
+import { arrowBack, heart, heartOutline } from 'ionicons/icons';
 import { Recipe } from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -17,12 +18,18 @@ export class RecipeDetailsPage implements OnInit {
   isLoading = signal(true);
   errorMessage = signal('');
 
+  isFavorite = computed(() => {
+    const recipe = this.recipe();
+    return recipe ? this.favoritesService.isFavorite(recipe.id) : false;
+  });
+
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
+    private favoritesService: FavoritesService,
     private navCtrl: NavController,
   ) {
-    addIcons({ arrowBack });
+    addIcons({ arrowBack, heart, heartOutline });
   }
 
   ngOnInit() {
@@ -40,7 +47,18 @@ export class RecipeDetailsPage implements OnInit {
     });
   }
 
+  toggleFavorite() {
+    const recipe = this.recipe();
+    if (recipe) {
+      this.favoritesService.toggle(recipe);
+    }
+  }
+
   goBack() {
-    this.navCtrl.navigateBack('/home');
+    if (window.history.length > 1) {
+      this.navCtrl.back();
+    } else {
+      this.navCtrl.navigateRoot('/home');
+    }
   }
 }

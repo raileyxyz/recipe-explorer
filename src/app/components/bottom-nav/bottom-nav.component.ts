@@ -22,7 +22,6 @@ interface NavItem {
 export class BottomNavComponent {
   @Input() active: string = 'home';
 
-  // Dagdagan lang ng object dito kapag may bagong feature
   items: NavItem[] = [
     { key: 'home', label: 'Home', route: '/home', icon: 'home-outline', iconActive: 'home', ready: true },
     {
@@ -31,7 +30,7 @@ export class BottomNavComponent {
       route: '/favorites',
       icon: 'heart-outline',
       iconActive: 'heart',
-      ready: false,
+      ready: true,
     },
     {
       key: 'about',
@@ -39,7 +38,7 @@ export class BottomNavComponent {
       route: '/about',
       icon: 'information-circle-outline',
       iconActive: 'information-circle',
-      ready: false,
+      ready: true,
     },
   ];
 

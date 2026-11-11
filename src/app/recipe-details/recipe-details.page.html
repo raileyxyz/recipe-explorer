@@ -5,7 +5,14 @@
     </ion-fab-button>
   </ion-fab>
 
-  @if (isLoading()) {
+  @if (recipe()) {
+  <ion-fab slot="fixed" vertical="top" horizontal="end">
+    <ion-fab-button size="small" class="fav-btn" [class.active]="isFavorite()" (click)="toggleFavorite()">
+      <ion-icon [name]="isFavorite() ? 'heart' : 'heart-outline'"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  } @if (isLoading()) {
   <div class="center">
     <ion-spinner></ion-spinner>
   </div>

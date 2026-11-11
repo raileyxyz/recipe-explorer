@@ -1,17 +1,8 @@
 import { Component, OnInit, computed, signal } from '@angular/core';
-import {
-  NavController,
-  IonContent,
-  IonFooter,
-  IonSearchbar,
-  IonChip,
-  IonLabel,
-  IonCard,
-  IonImg,
-  IonSpinner,
-} from '@ionic/angular';
+import { IonContent, IonFooter, IonSearchbar, IonChip, IonLabel, IonSpinner } from '@ionic/angular';
 import { PageHeaderComponent } from '../components/page-header/page-header.component';
 import { BottomNavComponent } from '../components/bottom-nav/bottom-nav.component';
+import { RecipeCardComponent } from '../components/recipe-card/recipe-card.component';
 import { Recipe } from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';
 
@@ -25,11 +16,10 @@ import { RecipeService } from '../services/recipe.service';
     IonSearchbar,
     IonChip,
     IonLabel,
-    IonCard,
-    IonImg,
     IonSpinner,
     PageHeaderComponent,
     BottomNavComponent,
+    RecipeCardComponent,
   ],
 })
 export class HomePage implements OnInit {
@@ -62,10 +52,7 @@ export class HomePage implements OnInit {
     });
   });
 
-  constructor(
-    private recipeService: RecipeService,
-    private navCtrl: NavController,
-  ) {}
+  constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
     this.recipeService.getRecipes().subscribe({
@@ -86,9 +73,5 @@ export class HomePage implements OnInit {
 
   selectType(type: string) {
     this.selectedType.set(type);
-  }
-
-  openRecipe(id: number) {
-    this.navCtrl.navigateForward(['/recipes', id]);
   }
 }

@@ -5,6 +5,16 @@ ion-fab-button {
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.fav-btn {
+  --background: #ffffff;
+  --color: #111111;
+
+  &.active {
+    --background: #111111;
+    --color: var(--ion-color-primary);
+  }
+}
+
 .hero {
   ion-img {
     height: 320px;
@@ -17,7 +27,6 @@ ion-fab-button {
   }
 }
 
-// Puting sheet na umaakyat sa larawan
 .sheet {
   position: relative;
   margin-top: -28px;
@@ -90,7 +99,6 @@ h2 {
   color: #111111;
 }
 
-// Ingredients: dashed na kahon, 2 column, dilaw na tuldok
 .ingredients {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -121,7 +129,6 @@ h2 {
   }
 }
 
-// Directions: numbered na dilaw na bilog
 .steps {
   margin: 0;
   padding: 0;

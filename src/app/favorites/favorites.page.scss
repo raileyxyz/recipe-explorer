@@ -1,0 +1,44 @@
+.page {
+  padding: 20px 20px 24px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 0 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  span {
+    font-size: 12px;
+    color: #8a8a8a;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.empty {
+  margin-top: 64px;
+  text-align: center;
+  font-size: 13px;
+  color: #8a8a8a;
+
+  p {
+    margin: 4px 0;
+  }
+
+  .empty-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111111;
+  }
+}

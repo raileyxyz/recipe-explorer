@@ -34,16 +34,7 @@
 
     <div class="grid">
       @for (recipe of filteredRecipes(); track recipe.id) {
-      <ion-card button (click)="openRecipe(recipe.id)">
-        <div class="thumb">
-          <ion-img [src]="recipe.image" [alt]="recipe.name"></ion-img>
-          <span class="badge">★ {{ recipe.rating }}</span>
-        </div>
-        <div class="info">
-          <h3>{{ recipe.name }}</h3>
-          <p>{{ recipe.cuisine }} • {{ recipe.prepTimeMinutes + recipe.cookTimeMinutes }} min</p>
-        </div>
-      </ion-card>
+      <app-recipe-card [recipe]="recipe"></app-recipe-card>
       }
     </div>
   </div>
