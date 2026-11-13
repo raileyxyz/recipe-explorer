@@ -5,6 +5,7 @@ import { BottomNavComponent } from '../components/bottom-nav/bottom-nav.componen
 import { RecipeCardComponent } from '../components/recipe-card/recipe-card.component';
 import { Recipe } from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';
+import { RecentService } from '../services/recent.service';
 
 @Component({
   selector: 'app-home',
@@ -38,6 +39,14 @@ export class HomePage implements OnInit {
     return ['All', ...Array.from(types).sort()];
   });
 
+  showSections = computed(() => this.searchText() === '' && this.selectedType() === 'All');
+
+  popularRecipes = computed(() =>
+    [...this.recipes()].sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount).slice(0, 8),
+  );
+
+  recentRecipes = computed(() => this.recentService.recipes());
+
   filteredRecipes = computed(() => {
     const text = this.searchText().toLowerCase();
     const type = this.selectedType();
@@ -52,7 +61,10 @@ export class HomePage implements OnInit {
     });
   });
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(
+    private recipeService: RecipeService,
+    private recentService: RecentService,
+  ) {}
 
   ngOnInit() {
     this.recipeService.getRecipes().subscribe({

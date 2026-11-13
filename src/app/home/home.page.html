@@ -17,8 +17,33 @@
       </div>
     </div>
 
+    @if (showSections() && !isLoading() && !errorMessage()) {
     <div class="section-title">
-      <h2>All Recipes</h2>
+      <h2>Popular Recipes</h2>
+    </div>
+    <div class="row">
+      @for (recipe of popularRecipes(); track recipe.id) {
+      <div class="row-item">
+        <app-recipe-card [recipe]="recipe"></app-recipe-card>
+      </div>
+      }
+    </div>
+
+    @if (recentRecipes().length > 0) {
+    <div class="section-title">
+      <h2>Recently Viewed</h2>
+    </div>
+    <div class="row">
+      @for (recipe of recentRecipes(); track recipe.id) {
+      <div class="row-item">
+        <app-recipe-card [recipe]="recipe"></app-recipe-card>
+      </div>
+      }
+    </div>
+    } }
+
+    <div class="section-title">
+      <h2>{{ showSections() ? 'All Recipes' : 'Results' }}</h2>
       <span>{{ filteredRecipes().length }} found</span>
     </div>
 

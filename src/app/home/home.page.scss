@@ -164,3 +164,23 @@ ion-card {
   color: #8a8a8a;
   margin-top: 32px;
 }
+
+.row {
+  display: flex;
+  gap: 14px;
+  margin: 0 -20px;
+  padding: 4px 20px 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-left: 20px;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.row-item {
+  flex: 0 0 150px;
+  scroll-snap-align: start;
+}
