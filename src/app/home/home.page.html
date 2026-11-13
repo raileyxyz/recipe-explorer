@@ -1,18 +1,32 @@
 <app-page-header title="Recipe Explorer"></app-page-header>
 
-<ion-content>
+<ion-content [scrollY]="!isWheelOpen()">
   <div class="page">
     <p class="greeting">Hello, foodie!</p>
     <h1 class="headline">Make your own food,<br />stay at <span>home</span></h1>
 
     <div class="top">
-      <ion-searchbar placeholder="Find your today's recipe" (ionInput)="onSearch($event)"></ion-searchbar>
+      <div class="search-row">
+        <ion-searchbar
+          placeholder="Find your today's recipe"
+          (ionInput)="onSearch($event)">
+        </ion-searchbar>
+
+        <button
+          class="wheel-open-button"
+          aria-label="Spin the wheel"
+          (click)="openWheel()">
+          <ion-icon name="aperture-outline"></ion-icon>
+        </button>
+      </div>
 
       <div class="chips">
         @for (type of mealTypes(); track type) {
-        <ion-chip [class.active]="selectedType() === type" (click)="selectType(type)">
-          <ion-label>{{ type }}</ion-label>
-        </ion-chip>
+          <ion-chip
+            [class.active]="selectedType() === type"
+            (click)="selectType(type)">
+            <ion-label>{{ type }}</ion-label>
+          </ion-chip>
         }
       </div>
     </div>
@@ -63,6 +77,90 @@
       }
     </div>
   </div>
+
+  @if (isWheelOpen()) {
+  <div class="wheel-overlay">
+    <div class="wheel-modal">
+
+      <div class="wheel-header">
+        <span>Spin the Wheel</span>
+        <button class="wheel-close" (click)="closeWheel()">✕</button>
+      </div>
+
+      <div class="wheel-heading">
+        <h2>What new recipe should you try today?</h2>
+        <p>Let the wheel decide what you'll cook!</p>
+      </div>
+
+      <div class="wheel-container">
+        <div class="wheel-pointer"></div>
+
+        <svg
+          class="wheel"
+          viewBox="0 0 400 400"
+          [style.transform]="'rotate(' + wheelRotation + 'deg)'"
+          [class.spinning]="isSpinning()"
+          (transitionend)="onWheelTransitionEnd()">
+
+          @for (segment of wheelSegments(); track segment.recipe.id) {
+            <path
+              [attr.d]="segment.path"
+              [attr.fill]="$index % 2 === 0 ? '#FFD84D' : '#FFFFFF'"
+              stroke="#E6BD37"
+              stroke-width="2">
+            </path>
+
+            <text
+              [attr.x]="segment.x"
+              [attr.y]="segment.y"
+              [attr.transform]="'rotate(' + segment.angle + ',' + segment.x + ',' + segment.y + ')'"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              class="wheel-label">
+              {{ segment.label }}
+            </text>
+          }
+
+          <circle cx="200" cy="200" r="25" fill="#FFFFFF" stroke="#E6BD37" stroke-width="4"></circle>
+          <circle cx="200" cy="200" r="8" fill="#FFD84D"></circle>
+        </svg>
+      </div>
+
+      <button
+        class="spin-button"
+        [disabled]="isSpinning()"
+        (click)="spinWheel()">
+        {{ isSpinning() ? 'SPINNING...' : 'SPIN THE WHEEL!' }}
+      </button>
+
+    </div>
+
+    @if (selectedWheelRecipe(); as recipe) {
+      <div class="wheel-result-overlay">
+        <div class="wheel-result-card">
+          <button class="wheel-close result-close" (click)="closeResult()">✕</button>
+
+          <img [src]="recipe.image" [alt]="recipe.name" />
+
+          <h2>{{ recipe.name }}</h2>
+
+          <p class="result-info">
+            {{ recipe.prepTimeMinutes + recipe.cookTimeMinutes }} minutes
+            · {{ recipe.difficulty }}
+          </p>
+
+          <button class="view-recipe-button" (click)="viewWheelRecipe()">
+            View Recipe
+          </button>
+
+          <button class="spin-again-button" (click)="closeResult()">
+            Spin Again
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+}
 </ion-content>
 
 <ion-footer class="ion-no-border">

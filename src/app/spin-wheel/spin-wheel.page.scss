@@ -1,0 +1,276 @@
+:host {
+  --yellow: #ffd84d;
+  --dark: #292929;
+  --soft-yellow: #fff9e8;
+}
+
+ion-content {
+  --background: var(--soft-yellow);
+}
+
+.spin-page {
+  min-height: 100%;
+  padding: 16px 20px 35px;
+  background: var(--soft-yellow);
+  color: var(--dark);
+}
+
+/* Header */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0 12px;
+}
+
+.close-button,
+.result-close {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #333333;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+/* Title */
+
+.page-title {
+  text-align: center;
+  margin: 18px auto 28px;
+  max-width: 360px;
+
+  h1 {
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 10px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #77705e;
+    margin: 0;
+  }
+}
+
+/* Wheel */
+
+.wheel-container {
+  width: min(100%, 370px);
+  aspect-ratio: 1;
+  margin: 20px auto 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transition: transform 5s cubic-bezier(0.12, 0.75, 0.12, 1);
+  transform-origin: center;
+  filter: drop-shadow(0 7px 9px rgba(0, 0, 0, 0.12));
+}
+
+.wheel-label {
+  fill: #292929;
+  font-size: 10px;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.wheel-pointer {
+  position: absolute;
+  z-index: 5;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-top: 36px solid #e9a900;
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Spin Button */
+
+.spin-controls {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.spin-button {
+  width: 100%;
+  max-width: 300px;
+  padding: 17px 25px;
+  border: none;
+  border-radius: 14px;
+  background: var(--yellow);
+  color: #292929;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  box-shadow: 0 5px 0 #e6bd37;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #e6bd37;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.wheel-description {
+  font-size: 12px;
+  color: #77705e;
+  margin-top: 18px;
+}
+
+/* Loading and Error */
+
+.loading-container,
+.error-container {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.loading-container ion-spinner {
+  color: #d5a500;
+}
+
+.error-container p {
+  color: #b42318;
+}
+
+/* Result Popup */
+
+.result-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.result-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  padding: 25px 20px;
+  border-radius: 24px;
+  background: #fffdf5;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  animation: popup 0.3s ease;
+}
+
+.result-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #f2f0e8;
+}
+
+.result-content {
+  text-align: center;
+  padding-top: 15px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 17px 0 8px;
+    color: #292929;
+  }
+}
+
+.result-subtitle {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #a17b00;
+  margin-bottom: 18px;
+}
+
+.result-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.result-info {
+  font-size: 13px;
+  color: #77705e;
+  margin: 0 0 20px;
+}
+
+.view-recipe-button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: var(--yellow);
+  color: #292929;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.spin-again-button {
+  margin-top: 13px;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #77705e;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Smaller screens */
+
+@media (max-width: 360px) {
+  .page-title h1 {
+    font-size: 22px;
+  }
+
+  .wheel-container {
+    width: 100%;
+  }
+
+  .wheel-label {
+    font-size: 8px;
+  }
+}

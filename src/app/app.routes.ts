@@ -30,4 +30,13 @@ export const routes: Routes = [
     path: 'shopping-list',
     loadComponent: () => import('./shopping-list/shopping-list.page').then((m) => m.ShoppingListPage),
   },
+  {
+    path: 'spin-wheel',
+    loadComponent: () => import('./spin-wheel/spin-wheel.page').then((m) => m.SpinWheelPage),
+  },
+  {
+    path: 'spin-wheel',
+    loadComponent: () =>
+      import('./spin-wheel/spin-wheel.page').then((m) => m.SpinWheelPage),
+  },
 ];

@@ -1,0 +1,159 @@
+<ion-content [fullscreen]="true">
+  <div class="spin-page">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div></div>
+
+      <button class="close-button" (click)="closePage()">
+        ✕
+      </button>
+    </div>
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <h1>What new recipe should you try today?</h1>
+      <p>Let the wheel decide what you'll cook!</p>
+    </div>
+
+    <!-- Loading -->
+    @if (isLoading()) {
+      <div class="loading-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Preparing your recipes...</p>
+      </div>
+    }
+
+    <!-- Error -->
+    @else if (errorMessage()) {
+      <div class="error-container">
+        <p>{{ errorMessage() }}</p>
+        <button class="spin-button" (click)="retry()">
+          Try Again
+        </button>
+      </div>
+    }
+
+    <!-- Wheel -->
+    @else {
+      <div class="wheel-container">
+
+        <!-- Pointer -->
+        <div class="wheel-pointer"></div>
+
+        <svg
+          class="wheel"
+          viewBox="0 0 400 400"
+          [style.transform]="'rotate(' + wheelRotation + 'deg)'"
+          [class.spinning]="isSpinning()"
+          (transitionend)="onWheelTransitionEnd()"
+        >
+
+          @for (segment of segments(); track segment.recipe.id) {
+            <path
+              [attr.d]="segment.path"
+              [attr.fill]="$index % 2 === 0 ? '#FFD84D' : '#FFFFFF'"
+              stroke="#E6BD37"
+              stroke-width="2"
+            />
+
+            <text
+              [attr.x]="segment.x"
+              [attr.y]="segment.y"
+              [attr.transform]="'rotate(' + segment.angle + ',' + segment.x + ',' + segment.y + ')'"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              class="wheel-label"
+            >
+              {{ segment.label }}
+            </text>
+          }
+
+          <circle
+            cx="200"
+            cy="200"
+            r="25"
+            fill="#FFFFFF"
+            stroke="#E6BD37"
+            stroke-width="4"
+          />
+
+          <circle
+            cx="200"
+            cy="200"
+            r="8"
+            fill="#FFD84D"
+          />
+
+        </svg>
+
+      </div>
+
+      <!-- Spin Button -->
+      <div class="spin-controls">
+        <button
+          class="spin-button"
+          [disabled]="isSpinning()"
+          (click)="spinWheel()"
+        >
+          {{ isSpinning() ? 'SPINNING...' : 'SPIN THE WHEEL!' }}
+        </button>
+
+        <p class="wheel-description">
+          10 random recipes. One delicious surprise!
+        </p>
+      </div>
+    }
+
+  </div>
+
+  <!-- Selected Recipe Popup -->
+  @if (selectedRecipe(); as recipe) {
+    <div class="result-overlay">
+      <div class="result-card">
+
+        <button
+          class="result-close"
+          (click)="closeResult()"
+        >
+          ✕
+        </button>
+
+        <div class="result-content">
+
+          <p class="result-subtitle">YOUR RECIPE IS...</p>
+
+          <ion-img
+            [src]="recipe.image"
+            [alt]="recipe.name"
+            class="result-image"
+          ></ion-img>
+
+          <h2>{{ recipe.name }}</h2>
+
+          <p class="result-info">
+            {{ recipe.prepTimeMinutes + recipe.cookTimeMinutes }} minutes
+            · {{ recipe.difficulty }}
+          </p>
+
+          <button
+            class="view-recipe-button"
+            (click)="viewRecipe()"
+          >
+            View Recipe
+          </button>
+
+          <button
+            class="spin-again-button"
+            (click)="closeResult()"
+          >
+            Spin Again
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  }
+
+</ion-content>
