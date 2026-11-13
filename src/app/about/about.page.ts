@@ -40,13 +40,13 @@ export class AboutPage {
     },
     {
       name: 'Mikey Kevin A. Marcelo',
-      photo: 'assets/members/mike.png',
+      photo: 'assets/members/mike.jpg',
       role: 'Component Developer and Tester',
       contribution: 'Built the About page and reusable components, and tested the main user flow.',
     },
     {
       name: 'Miguelito A. Fajardo',
-      photo: 'assets/members/migs.png',
+      photo: 'assets/members/miguel.jpg',
       role: 'Documentation and Build',
       contribution: 'Built the Android APK, took screenshots, and wrote the documentation.',
     },
