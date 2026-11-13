@@ -22,7 +22,7 @@ export class AboutPage {
     'A hybrid mobile app built with Ionic and Angular. It shows recipes from a public API, lets users search and filter them by meal type, view the ingredients and directions, and save their favorites.';
 
   course = 'BSIT';
-  yearSection = '3Fucking F';
+  yearSection = '3F';
   subject = 'Mobile Application Development – Final Case Study';
 
   members: Member[] = [
