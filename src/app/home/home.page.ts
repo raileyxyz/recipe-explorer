@@ -7,6 +7,8 @@ import { Recipe } from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';
 import { RecentService } from '../services/recent.service';
 
+const normalize = (type: string) => (type === 'Snack' ? 'Snacks' : type);
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -34,7 +36,7 @@ export class HomePage implements OnInit {
   mealTypes = computed(() => {
     const types = new Set<string>();
     this.recipes().forEach((recipe) => {
-      recipe.mealType.forEach((type) => types.add(type));
+      recipe.mealType.forEach((type) => types.add(normalize(type)));
     });
     return ['All', ...Array.from(types).sort()];
   });
@@ -52,7 +54,7 @@ export class HomePage implements OnInit {
     const type = this.selectedType();
 
     return this.recipes().filter((recipe) => {
-      const matchesType = type === 'All' || recipe.mealType.includes(type);
+      const matchesType = type === 'All' || recipe.mealType.map(normalize).includes(type);
       const matchesText =
         recipe.name.toLowerCase().includes(text) ||
         recipe.cuisine.toLowerCase().includes(text) ||
