@@ -2,10 +2,12 @@ import { Component, OnInit, computed, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, IonContent, IonImg, IonSpinner, IonFab, IonFabButton, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { arrowBack, heart, heartOutline } from 'ionicons/icons';
+import { arrowBack, heart, heartOutline, cartOutline, checkmarkCircle } from 'ionicons/icons';
 import { Recipe } from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';
 import { FavoritesService } from '../services/favorites.service';
+import { RecentService } from '../services/recent.service';
+import { ShoppingListService } from '../services/shopping-list.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -23,13 +25,20 @@ export class RecipeDetailsPage implements OnInit {
     return recipe ? this.favoritesService.isFavorite(recipe.id) : false;
   });
 
+  inShoppingList = computed(() => {
+    const recipe = this.recipe();
+    return recipe ? this.shoppingList.hasRecipe(recipe.id) : false;
+  });
+
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
     private favoritesService: FavoritesService,
+    private recentService: RecentService,
+    private shoppingList: ShoppingListService,
     private navCtrl: NavController,
   ) {
-    addIcons({ arrowBack, heart, heartOutline });
+    addIcons({ arrowBack, heart, heartOutline, cartOutline, checkmarkCircle });
   }
 
   ngOnInit() {
@@ -38,6 +47,7 @@ export class RecipeDetailsPage implements OnInit {
     this.recipeService.getRecipe(id).subscribe({
       next: (recipe) => {
         this.recipe.set(recipe);
+        this.recentService.add(recipe);
         this.isLoading.set(false);
       },
       error: () => {
@@ -51,6 +61,18 @@ export class RecipeDetailsPage implements OnInit {
     const recipe = this.recipe();
     if (recipe) {
       this.favoritesService.toggle(recipe);
+    }
+  }
+
+  onShoppingButton() {
+    const recipe = this.recipe();
+    if (!recipe) {
+      return;
+    }
+    if (this.inShoppingList()) {
+      this.navCtrl.navigateRoot('/shopping-list');
+    } else {
+      this.shoppingList.addRecipe(recipe);
     }
   }
 

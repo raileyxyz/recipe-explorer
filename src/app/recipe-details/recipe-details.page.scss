@@ -173,3 +173,28 @@ h2 {
   text-align: center;
   color: var(--ion-color-danger);
 }
+
+.shop-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px;
+  border: 1.5px solid var(--ion-color-primary);
+  border-radius: 14px;
+  background: var(--ion-color-primary);
+  color: #000000;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  ion-icon {
+    font-size: 18px;
+  }
+
+  &.added {
+    background: #ffffff;
+  }
+}

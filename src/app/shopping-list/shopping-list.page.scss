@@ -1,0 +1,108 @@
+.page {
+  padding: 20px 20px 24px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 0 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  span {
+    font-size: 12px;
+    color: #8a8a8a;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.action-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 14px;
+  background: #fdf6dd;
+  color: #111111;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  &:disabled {
+    opacity: 0.45;
+  }
+}
+
+.group {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111111;
+  }
+}
+
+.remove-btn {
+  padding: 4px 0;
+  border: none;
+  background: none;
+  color: #b38900;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+ion-checkbox {
+  display: block;
+  padding: 8px 0;
+  font-size: 13px;
+  --size: 20px;
+  --border-radius: 6px;
+  --checkbox-background-checked: var(--ion-color-primary);
+  --border-color-checked: var(--ion-color-primary);
+  --checkmark-color: #000000;
+
+  &.done {
+    color: #9a9a9a;
+    text-decoration: line-through;
+  }
+}
+
+.empty {
+  margin-top: 64px;
+  text-align: center;
+  font-size: 13px;
+  color: #8a8a8a;
+
+  p {
+    margin: 4px 0;
+  }
+
+  .empty-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111111;
+  }
+}

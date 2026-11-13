@@ -56,6 +56,11 @@
       }
     </ul>
 
+    <button class="shop-btn" [class.added]="inShoppingList()" (click)="onShoppingButton()">
+      <ion-icon [name]="inShoppingList() ? 'checkmark-circle' : 'cart-outline'"></ion-icon>
+      {{ inShoppingList() ? 'View Shopping List' : 'Add to Shopping List' }}
+    </button>
+
     <h2>Directions</h2>
     <ol class="steps">
       @for (step of r.instructions; track $index) {

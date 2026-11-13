@@ -1,0 +1,47 @@
+<app-page-header title="Shopping List"></app-page-header>
+
+<ion-content>
+  <div class="page">
+    <div class="section-title">
+      <h2>Ingredients to Buy</h2>
+      <span>{{ checkedCount() }} / {{ shopping.items().length }} done</span>
+    </div>
+
+    @if (shopping.items().length === 0) {
+    <div class="empty">
+      <p class="empty-title">Your list is empty</p>
+      <p>Open a recipe and tap "Add to Shopping List" to see its ingredients here.</p>
+    </div>
+    } @else {
+    <div class="actions">
+      <button class="action-btn" [disabled]="checkedCount() === 0" (click)="shopping.clearChecked()">
+        Clear checked
+      </button>
+      <button class="action-btn" (click)="shopping.clearAll()">Clear all</button>
+    </div>
+    } @for (group of groups(); track group.recipeId) {
+    <div class="group">
+      <div class="group-header">
+        <h3>{{ group.recipeName }}</h3>
+        <button class="remove-btn" (click)="shopping.removeRecipe(group.recipeId)">Remove</button>
+      </div>
+
+      @for (item of group.items; track item.id) {
+      <ion-checkbox
+        labelPlacement="end"
+        justify="start"
+        [class.done]="item.checked"
+        [checked]="item.checked"
+        (ionChange)="shopping.toggle(item.id)"
+      >
+        {{ item.name }}
+      </ion-checkbox>
+      }
+    </div>
+    }
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <app-bottom-nav active="shopping"></app-bottom-nav>
+</ion-footer>

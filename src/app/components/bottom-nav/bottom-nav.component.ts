@@ -1,7 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { NavController, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { home, homeOutline, heart, heartOutline, informationCircle, informationCircleOutline } from 'ionicons/icons';
+import {
+  home,
+  homeOutline,
+  heart,
+  heartOutline,
+  informationCircle,
+  informationCircleOutline,
+  cart,
+  cartOutline,
+} from 'ionicons/icons';
 
 interface NavItem {
   key: string;
@@ -33,6 +42,14 @@ export class BottomNavComponent {
       ready: true,
     },
     {
+      key: 'shopping',
+      label: 'Shopping',
+      route: '/shopping-list',
+      icon: 'cart-outline',
+      iconActive: 'cart',
+      ready: true,
+    },
+    {
       key: 'about',
       label: 'About',
       route: '/about',
@@ -43,7 +60,16 @@ export class BottomNavComponent {
   ];
 
   constructor(private navCtrl: NavController) {
-    addIcons({ home, homeOutline, heart, heartOutline, informationCircle, informationCircleOutline });
+    addIcons({
+      home,
+      homeOutline,
+      heart,
+      heartOutline,
+      informationCircle,
+      informationCircleOutline,
+      cart,
+      cartOutline,
+    });
   }
 
   go(item: NavItem) {
